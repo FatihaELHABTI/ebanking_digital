@@ -1,7 +1,6 @@
 package ma.enset.ebanking_digital.dtos;
 
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.Data;
 import ma.enset.ebanking_digital.enums.OperationType;
 
 import java.util.Date;
@@ -14,5 +13,5 @@ public class AccountOperationDTO {
     private double amount;
     private String description;
     private OperationType type;
-
+    private String accountId; // Added to include the associated account ID
 }

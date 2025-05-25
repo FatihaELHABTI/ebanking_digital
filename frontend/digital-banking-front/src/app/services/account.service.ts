@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { AccountDetails } from '../model/account.model';
+import {AccountDetails, AccountOperation, BankAccount} from '../model/account.model';
 import {environment} from '../../environment/environment';
 
 @Injectable({
@@ -31,5 +31,19 @@ export class AccountsService {
     return this.http.post(environment.backendHost+"/accounts/transfer", data);
   }
 
+  public getCustomerAccounts(customerId: string): Observable<BankAccount[]> {
+    return this.http.get<BankAccount[]>(`${environment.backendHost}/customers/${customerId}/accounts`);
+  }
+  getTotalAccounts(): Observable<number> {
+    return this.http.get<number>(`${environment.backendHost}/accounts/count`);
+  }
+
+  getTotalBalance(): Observable<number> {
+    return this.http.get<number>(`${environment.backendHost}/accounts/totalBalance`);
+  }
+
+  getRecentTransactions(): Observable<AccountOperation[]> {
+    return this.http.get<AccountOperation[]>(`${environment.backendHost}/accounts/recentTransactions?size=5`);
+  }
 
 }

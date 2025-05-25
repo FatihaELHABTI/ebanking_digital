@@ -6,6 +6,7 @@ import ma.enset.ebanking_digital.dtos.*;
 import ma.enset.ebanking_digital.exceptions.*;
 import ma.enset.ebanking_digital.repositories.*;
 import ma.enset.ebanking_digital.services.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -61,6 +62,30 @@ public class BankAccountRestController {
                 transferRequestDTO.getAccountSource(),
                 transferRequestDTO.getAccountDestination(),
                 transferRequestDTO.getAmount());
+    }
+
+    @GetMapping("/accounts/count")
+    @PreAuthorize("hasAuthority('SCOPE_USER')")
+    public long getTotalAccounts() {
+        return bankAccountService.getTotalAccounts();
+    }
+
+    @GetMapping("/accounts/totalBalance")
+    @PreAuthorize("hasAuthority('SCOPE_USER')")
+    public double getTotalBalance() {
+        return bankAccountService.getTotalBalance();
+    }
+
+    @GetMapping("/accounts/recentTransactions")
+    @PreAuthorize("hasAuthority('SCOPE_USER')")
+    public List<AccountOperationDTO> getRecentTransactions(@RequestParam(name = "size", defaultValue = "5") int size) {
+        return bankAccountService.getRecentTransactions(size);
+    }
+
+    @GetMapping("/customers/count")
+    @PreAuthorize("hasAuthority('SCOPE_USER')")
+    public long getTotalCustomers() {
+        return bankAccountService.getTotalCustomers();
     }
 }
 

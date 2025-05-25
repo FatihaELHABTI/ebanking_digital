@@ -35,4 +35,8 @@ public interface BankAccountService {
     List<CustomerDTO> searchCustomer(String keyword);
 
     List<BankAccountDTO> bankAccountCustomer(Long customerId);
+    long getTotalAccounts();
+    double getTotalBalance();
+    List<AccountOperationDTO> getRecentTransactions(int size);
+    long getTotalCustomers();
 }

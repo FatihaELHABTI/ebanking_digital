@@ -57,6 +57,11 @@ public class CustomerRestController {
     public List<CustomerDTO> searchCustomer(@RequestParam(name = "keyword", defaultValue = "") String keyword) {
         return bankAccountService.searchCustomer("%"+keyword+"%");
     }
+    @GetMapping("/customers/{id}/accounts")
+    @PreAuthorize("hasAuthority('SCOPE_USER')")
+    public List<BankAccountDTO> getCustomerAccounts(@PathVariable(name = "id") Long customerId) {
+        return bankAccountService.bankAccountCustomer(customerId);
+    }
 }
 
 

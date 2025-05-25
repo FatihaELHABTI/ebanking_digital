@@ -35,6 +35,11 @@ export class AccountsComponent implements OnInit{
       description : this.fb.control(null),
       accountDestination : this.fb.control(null)
     });
+    // const state = this.router.getCurrentNavigation()?.extras.state;
+    // if (state && state.accountId) {
+    //   this.accountFormGroup.patchValue({ accountId: state.accountId });
+    //   this.handleSearchAccount();
+    // }
   }
 
   handleSearchAccount(){

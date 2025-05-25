@@ -28,8 +28,17 @@ export class CustomerService {
   deleteCustomer(idCustomer : number){
     return this.http.delete(environment.backendHost+"/customers/"+idCustomer);
   }
+  updateCustomer(customer: Customer): Observable<Customer> {
+    return this.http.put<Customer>(`${environment.backendHost}/customers/${customer.id}`, customer);
+  }
+  // New method to fetch a single customer by ID
+  getCustomer(customerId: string): Observable<Customer> {
+    return this.http.get<Customer>(`${environment.backendHost}/customers/${customerId}`);
+  }
 
-
+  getTotalCustomers(): Observable<number> {
+    return this.http.get<number>(`${environment.backendHost}/customers/count`);
+  }
 }
 
 // les méthodes get, post, put retourne un objet de type Observable

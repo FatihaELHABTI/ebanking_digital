@@ -266,6 +266,35 @@ public class BankAccountServiceImpl implements BankAccountService {
 
         return bankAccountDTOS;
     }
+    @Override
+    public long getTotalAccounts() {
+        log.info("Fetching total number of accounts");
+        return bankAccountRepository.count();
+    }
 
+    @Override
+    public double getTotalBalance() {
+        log.info("Calculating total balance across all accounts");
+        List<BankAccount> bankAccounts = bankAccountRepository.findAll();
+        return bankAccounts.stream()
+                .mapToDouble(BankAccount::getBalance)
+                .sum();
+    }
 
+    @Override
+    public List<AccountOperationDTO> getRecentTransactions(int size) {
+        log.info("Fetching recent transactions with size: {}", size);
+        Page<AccountOperation> recentOperations = accountOperationRepository.findAll(
+                PageRequest.of(0, size).withSort(org.springframework.data.domain.Sort.by("operationDate").descending())
+        );
+        return recentOperations.getContent().stream()
+                .map(dtoMapper::fromAccountOperation)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public long getTotalCustomers() {
+        log.info("Fetching total number of customers");
+        return customerRepository.count();
+    }
 }

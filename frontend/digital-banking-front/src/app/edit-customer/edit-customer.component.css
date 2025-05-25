@@ -1,0 +1,121 @@
+/* new-customer.component.css */
+
+/* Container styles */
+.container {
+  padding: 2rem;
+  background-color: #f3f4f6;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Form card styles */
+.border {
+  border: none !important;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+  padding: 2rem !important;
+  width: 100%;
+  max-width: 500px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.border:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Header styles */
+h4 {
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+/* Form input styles */
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #0d9488;
+  box-shadow: 0 0 8px rgba(13, 148, 136, 0.3);
+}
+
+.form-control::placeholder {
+  color: #6b7280;
+  opacity: 0.7;
+}
+
+/* Error messages */
+.text-danger {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  display: block;
+  color: #f43f5e;
+  background-color: #fee2e2;
+  border-radius: 6px;
+}
+
+/* Submit button */
+.btn-primary {
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-weight: 500;
+  background: linear-gradient(135deg, #0d9488, #0b8277);
+  border: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0b8277, #0a6b62);
+  transform: translateY(-2px);
+}
+
+.btn-primary:focus {
+  box-shadow: 0 0 8px rgba(13, 148, 136, 0.3);
+}
+
+.btn-primary:disabled {
+  background: #6b7280;
+  opacity: 0.7;
+  transform: none;
+  cursor: not-allowed;
+}
+
+/* Icon in button */
+.btn-primary .bi {
+  margin-right: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .border {
+    padding: 1.5rem !important;
+  }
+
+  .form-control {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  .btn-primary {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .text-danger {
+    font-size: 0.8rem;
+  }
+}
