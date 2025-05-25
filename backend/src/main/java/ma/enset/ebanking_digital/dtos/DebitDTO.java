@@ -1,6 +1,5 @@
 package ma.enset.ebanking_digital.dtos;
 
-
 import lombok.Data;
 
 @Data

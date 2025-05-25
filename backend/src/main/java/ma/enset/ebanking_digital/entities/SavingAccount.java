@@ -1,16 +1,16 @@
 package ma.enset.ebanking_digital.entities;
 
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import lombok.*;
 
 @Entity
+// regarder CurrentAccount pour comprendre
 @DiscriminatorValue("SA")
-@Data @NoArgsConstructor @AllArgsConstructor
-public class SavingAccount extends BankAccount {
+@Data
+@NoArgsConstructor @AllArgsConstructor @Getter @Setter
+public class SavingAccount extends BankAccount{
+
     private double interestRate;
 }

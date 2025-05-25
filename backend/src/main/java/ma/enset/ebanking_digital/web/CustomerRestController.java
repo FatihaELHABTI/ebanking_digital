@@ -2,8 +2,9 @@ package ma.enset.ebanking_digital.web;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.enset.ebanking_digital.dtos.CustomerDTO;
-import ma.enset.ebanking_digital.exceptions.CustomerNotFoundException;
+
+import ma.enset.ebanking_digital.dtos.*;
+import ma.enset.ebanking_digital.exceptions.*;
 import ma.enset.ebanking_digital.services.BankAccountService;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -54,6 +55,15 @@ public class CustomerRestController {
 
     @GetMapping("/customers/search")
     public List<CustomerDTO> searchCustomer(@RequestParam(name = "keyword", defaultValue = "") String keyword) {
-        return bankAccountService.searchCustomers("%"+keyword+"%");
+        return bankAccountService.searchCustomer("%"+keyword+"%");
     }
 }
+
+
+/*
+@RequestBody CustomerDTO request : indiquer a spring comme quoi les données de customerDTO on va
+les récupérer a partir du corps de la requétte (@RequestBody) en format Json.
+
+@PreAuthorize : Elle permet de contrôler l'accès à un endpoint REST ou une méthode selon les autorités
+(roles/permissions) contenues dans le token JWT.
+ */

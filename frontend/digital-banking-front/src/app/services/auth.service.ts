@@ -40,8 +40,6 @@ export class AuthService {
     this.accessToken = undefined;
     this.username = undefined;
     this.roles = undefined;
-    window.localStorage.removeItem("jwt-token");
-    this.router.navigateByUrl("/login");
   }
 
   loadJwtTokenFormLocalStorage(){

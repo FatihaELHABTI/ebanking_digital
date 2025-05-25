@@ -1,56 +1,74 @@
-<div class="container mt-2">
+<div class="container py-5">
+  <!-- Gestion des données avec le pipe async -->
   <ng-container *ngIf="customers | async as listCustomers; else failureOrLoading">
-    <div class="card" *ngIf="customers">
-      <div class="card-header">Customers</div>
+
+    <div class="card shadow-lg border-0 rounded-4">
+      <!-- En-tête -->
+      <div class="card-header">
+        <h3 class="mb-0 text-primary">Customer List</h3>
+      </div>
+
+      <!-- Corps avec tableau -->
       <div class="card-body">
-        <div *ngIf="searchFormGroup">
-          <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchCustomers()">
-            <div class="input-group">
-              <label class="input-group-text">Keyword :</label>
-              <input type="text" formControlName="keyword" class="form-control">
-              <button type="submit" class="btn btn-info">
-                <i class="bi bi-search"></i>
-              </button>
-            </div>
-          </form>
+        <div class="table-responsive">
+          <div *ngIf="searchFormGroup">
+            <form [formGroup]="searchFormGroup" (ngSubmit)="handleSearchCustomers()">
+              <div class="input-group mb-3">
+                <label for="kw" class="input-group-text">Keyword :</label>
+                <input type="text" id="kw" formControlName="keyword" class="form-control">
+                <button class="btn btn-info">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <table class="table table-hover align-middle">
+            <thead class="table-primary">
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>E-mail</th>
+              <th class="text-end">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let customer of listCustomers">
+              <td>{{ customer.id }}</td>
+              <td>{{ customer.name }}</td>
+              <td>{{ customer.email }}</td>
+              <td class="text-end">
+                <!-- Boutons stylés Bootstrap, visibles seulement pour ADMIN -->
+                <button *ngIf="authService.roles.includes('ADMIN')" class="btn btn-warning btn-sm me-2" (click)="onEditCustomer(customer)">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button *ngIf="authService.roles.includes('ADMIN')" class="btn btn-danger btn-sm" (click)="onDeleteCustomer(customer)">
+                  <i class="bi bi-trash"></i>
+                </button>
+                <button class="btn btn-success ms-2" (click)="handleCustomerAccounts(customer)">
+                  Account
+                </button>
+              </td>
+              <td class="text-end"></td>
+            </tr>
+            </tbody>
+          </table>
         </div>
-        <table class="table">
-          <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let c of customers | async">
-            <td>{{c.id}}</td>
-            <td>{{c.name}}</td>
-            <td>{{c.email}}</td>
-            <td>
-              <button (click)="handleDeleteCustomer(c)" class="btn btn-danger">
-                <i class="bi bi-trash"></i>
-              </button>
-              <button (click)="handleCustomerAccounts(c)" class="ms-2 btn btn-success">
-                Accounts
-              </button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
       </div>
     </div>
   </ng-container>
+
+  <!-- Gestion des erreurs et du chargement -->
   <ng-template #failureOrLoading>
     <ng-container *ngIf="errorMessage; else loading">
       <div class="text-danger">
-        {{errorMessage}}
+        {{ errorMessage }}
       </div>
     </ng-container>
     <ng-template #loading>
-      Loading ...
+      <div class="text-info">
+        Loading...
+      </div>
     </ng-template>
   </ng-template>
-
 </div>

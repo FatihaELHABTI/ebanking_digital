@@ -1,27 +1,29 @@
 package ma.enset.ebanking_digital.services;
 
 
+import jakarta.transaction.Transactional;
 
 import ma.enset.ebanking_digital.dtos.*;
-import ma.enset.ebanking_digital.exceptions.BalanceNotSufficientException;
-import ma.enset.ebanking_digital.exceptions.BankAccountNotFoundException;
-import ma.enset.ebanking_digital.exceptions.CustomerNotFoundException;
+import ma.enset.ebanking_digital.exceptions.*;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 public interface BankAccountService {
+
     CustomerDTO saveCustomer(CustomerDTO customerDTO);
-    CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId) throws CustomerNotFoundException;
-    SavingBankAccountDTO saveSavingBankAccount(double initialBalance, double interestRate, Long customerId) throws CustomerNotFoundException;
+    CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, double overDraft, Long customerId)throws CustomerNotFoundException;
+    SavingBankAccountDTO saveSavingBankAccount(double initialBalance, double interestRate, Long customerId)throws CustomerNotFoundException;
     List<CustomerDTO> listCustomers();
-    BankAccountDTO getBankAccount(String accountId) throws BankAccountNotFoundException;
+    BankAccountDTO getBankAccount(String accountId)throws BankAccountNotFoundException;
     void debit(String accountId, double amount, String description) throws BankAccountNotFoundException, BalanceNotSufficientException;
     void credit(String accountId, double amount, String description) throws BankAccountNotFoundException;
-    void transfer(String accountIdSource, String accountIdDestination, double amount) throws BankAccountNotFoundException, BalanceNotSufficientException;
+    void transfert(String accountIdSource, String accountIdDestination, double amount) throws BankAccountNotFoundException, BalanceNotSufficientException;
 
     List<BankAccountDTO> bankAccountList();
+    public CustomerDTO getCustomer(Long accountId) throws CustomerNotFoundException;
 
-    CustomerDTO getCustomer(Long customerId) throws CustomerNotFoundException;
-
+    // Enregistre un nouveau client dans la base de données.
     CustomerDTO updateCustomer(CustomerDTO customerDTO);
 
     void deleteCustomer(Long customerId);
@@ -30,5 +32,7 @@ public interface BankAccountService {
 
     AccountHistoryDTO getAccountHistory(String accountId, int page, int size) throws BankAccountNotFoundException;
 
-    List<CustomerDTO> searchCustomers(String keyword);
+    List<CustomerDTO> searchCustomer(String keyword);
+
+    List<BankAccountDTO> bankAccountCustomer(Long customerId);
 }

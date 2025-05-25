@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AccountService } from '../services/account.service';
+import { AccountsService } from '../services/account.service';
 import { catchError, Observable, throwError } from 'rxjs';
 import { AccountDetails } from '../model/account.model';
 import Swal from 'sweetalert2';
@@ -22,7 +22,7 @@ export class AccountsComponent implements OnInit{
   errorMessage! : string;
 
 
-  constructor(private fb : FormBuilder, private accountService : AccountService, public authService : AuthService){}
+  constructor(private fb : FormBuilder, private accountService : AccountsService, public authService : AuthService){}
 
   ngOnInit(): void {
     this.accountFormGroup = this.fb.group({
@@ -41,10 +41,10 @@ export class AccountsComponent implements OnInit{
     let accountId : string = this.accountFormGroup.value.accountId;
     // au lieux d'utilisé .subscibe....
     this.accountObservable =  this.accountService.getAccount(accountId, this.currentPage, this.pageSize).pipe(
-        catchError(err => {
-          this.errorMessage = err.message;
-          return throwError(err);
-        })
+      catchError(err => {
+        this.errorMessage = err.message;
+        return throwError(err);
+      })
     );
   }
 
